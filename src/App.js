@@ -27,46 +27,44 @@ const imageGallery = [
 ];
 
 function useParallax(value, distance) {
-  return useTransform(value, [0, 1], [-distance, distance]);
+  const y = useTransform(value, [0, 1], [-distance, distance]);
+  const opacity = useTransform(value, [0.1, 0.5, 0.9], [0, 1, 0]); // Visible only in the middle range
+  return { y, opacity };
 }
 
 function Image({ src, text }) {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["end end", "start start"],
+    offset: ["end end", "start start"], // Adjust based on when the animation should begin/end
   });
-  const y = useParallax(scrollYProgress, 200);
+
+  const { y, opacity } = useParallax(scrollYProgress, 200); // Use parallax with fade effect
 
   return (
     <div
-      style={{ backgroundImage: `url(${src})`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat", position:"relative" }}
+      style={{ backgroundImage: `url(${src})`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat", position: "relative" }}
       className="container"
       ref={ref}
     >
       <motion.div
         style={{
-          position:"relative",
-          // transform: "translate(-50%, -50%)",
+          position: "relative",
           color: "white",
           zIndex: 1,
           display: "flex",
           flexDirection: "column",
-          alignItems:"center",
-          y,
+          alignItems: "center",
+          y: y, // Apply parallax Y movement
+          opacity: opacity, // Apply opacity control for fade-in/out
         }}
+        transition={{ duration: 0.3, ease: "easeInOut" }} // Smooth transitions
       >
-        <p style={{ fontSize: "24px", fontWeight: 500, alignItems: "center", justifyContent: "center", alignSelf: "center", display: "flex", margin: 0 }}>
-          {`#00${text}`}
-        </p>
+        <p style={{ fontSize: "24px", fontWeight: 500, margin: 0 }}>{`#00${text}`}</p>
         <p
           style={{
             fontSize: "60px",
             fontWeight: 700,
-            alignItems: "center",
-            justifyContent: "center",
-            alignSelf: "center",
-            display: "flex",
             margin: "20px",
           }}
         >
