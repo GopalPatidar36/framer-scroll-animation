@@ -36,44 +36,52 @@ function Image({ src, text }) {
     target: ref,
     offset: ["end end", "start start"],
   });
-  const y = useParallax(scrollYProgress, 200);
+  const y = useParallax(scrollYProgress, 250);
 
   return (
-    <section>
-      <div className="container" ref={ref}>
-        <img src={src} alt="A London skyscraper" />
-        <motion.div
+    <div
+      style={{ backgroundImage: `url(${src})`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat" }}
+      className="container"
+      ref={ref}
+    >
+      <motion.div
+        style={{
+          transform: "translate(-50%, -50%)",
+          color: "white",
+          zIndex: 1,
+          display: "flex",
+          flexDirection: "column",
+          y,
+        }}
+      >
+        <p style={{ fontSize: "24px", fontWeight: 500, alignItems: "center", justifyContent: "center", alignSelf: "center", display: "flex", margin: 0 }}>
+          {`#00${text}`}
+        </p>
+        <p
           style={{
-            position: "absolute",
-            transform: "translate(-50%, -50%)",
-            color: "white",
-            zIndex: 1,
+            fontSize: "60px",
+            fontWeight: 700,
+            alignItems: "center",
+            justifyContent: "center",
+            alignSelf: "center",
             display: "flex",
-            flexDirection: "column",
-            y,
+            margin: "20px",
           }}
         >
-          <p style={{ fontSize: "24px", fontWeight: 500, alignItems: "center", justifyContent: "center", alignSelf: "center", display: "flex", margin: 0 }}>
-            {`#00${text}`}
-          </p>
-          <p
-            style={{ fontSize: "60px", fontWeight: 700, alignItems: "center", justifyContent: "center", alignSelf: "center", display: "flex", margin: "20px" }}
-          >
-            {`#00${text}`}
-          </p>
-          <button className="arrow-button"> arrow </button>
-        </motion.div>
-      </div>
-    </section>
+          {`#00${text}`}
+        </p>
+        <button className="arrow-button"> arrow </button>
+      </motion.div>
+    </div>
   );
 }
 
 export default function App() {
   return (
-    <>
+    <div className="App">
       {imageGallary.map((image, index) => (
         <Image src={image.src} text={image.text} />
       ))}
-    </>
+    </div>
   );
 }

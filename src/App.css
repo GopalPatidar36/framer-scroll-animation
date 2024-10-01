@@ -2,41 +2,34 @@ html {
   scroll-snap-type: y mandatory;
 }
 
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
 .container {
-  width: 100%;
-  height: 100vh;
   position: relative;
-  max-height: 90vh;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-}
 
-section {
-  height: 80vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  scroll-snap-align: center;
-  perspective: 500px;
-}
-
-section:first-child {
-  margin-top: 10vh;
-}
-
-section:last-child {
-  margin-bottom: 10vh;
-}
-
-img {
-  position: absolute;
   width: 1027px;
   height: 70vh;
   object-fit: cover;
   clip-path: polygon(0 0, 100% 0, 96% 24%, 96% 74%, 100% 100%, 0 100%, 4% 73%, 4% 24%);
+  scroll-snap-align: center;
+  margin-bottom: 10vh;
+}
+
+.container:first-child {
+  margin-top: 10vh;
+}
+
+.container:last-child {
+  margin-bottom: 10vh;
 }
 
 .arrow-button {
