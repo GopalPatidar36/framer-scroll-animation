@@ -9,19 +9,28 @@ html {
   flex-direction: column;
 }
 
+.image-gallery-container {
+  display: flex;
+  position: relative;
+}
+
+.scrollable-gallery {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
 .container {
   position: relative;
-  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
 
   width: 1027px;
   height: 70vh;
-  object-fit: cover;
-  clip-path: polygon(0 0, 100% 0, 96% 24%, 96% 74%, 100% 100%, 0 100%, 4% 73%, 4% 24%);
-  scroll-snap-align: center;
   margin-bottom: 10vh;
+  scroll-snap-align: center;
 }
 
 .container:first-child {
@@ -39,4 +48,27 @@ html {
   border-radius: 50%;
   border: none;
   align-self: center;
+}
+
+.left-border,
+.right-border {
+  width: 150px;
+  background-color: darkgray;
+  position: sticky;
+  top: 0;
+  height: 170vh;
+  border-radius: 50%;
+  margin: -35px;
+  z-index: 3;
+  top: -35vh;
+}
+
+.left-border {
+  left: 0;
+  clip-path: inset(0 0 0 60%);
+}
+
+.right-border {
+  right: 0;
+  clip-path: inset(0 60% 0 0);
 }
