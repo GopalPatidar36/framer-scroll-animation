@@ -28,8 +28,9 @@ const imageGallery = [
 
 function useParallax(value, distance) {
   const y = useTransform(value, [0, 1], [-distance, distance]);
-  const opacity = useTransform(value, [0.1, 0.5, 0.9], [0, 1, 0]); // Visible only in the middle range
-  return { y, opacity };
+  const opacity = useTransform(value, [0.1, 0.3, 0.4, 0.5, 0.6, 0.7, 0.9], [0, 1, 1, 1, 1, 1, 0]); // Visible only in the middle range
+  const backgroundPositionY = useTransform(value, [0, 1], ["0%", "50%"]); // Smooth background scrolling
+  return { y, opacity, backgroundPositionY };
 }
 
 function Image({ src, text }) {
@@ -39,11 +40,19 @@ function Image({ src, text }) {
     offset: ["end end", "start start"], // Adjust based on when the animation should begin/end
   });
 
-  const { y, opacity } = useParallax(scrollYProgress, 200); // Use parallax with fade effect
+  const { y, opacity, backgroundPositionY } = useParallax(scrollYProgress, 200); // Use parallax with fade effect
 
   return (
-    <div
-      style={{ backgroundImage: `url(${src})`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat", position: "relative" }}
+    <motion.div
+      style={{
+        backgroundImage: `url(${src})`,
+        backgroundSize: "contain",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        position: "relative",
+        backgroundAttachment: "fixed", // Create parallax effect
+        backgroundPositionY: backgroundPositionY, // Animate the background Y position
+      }}
       className="container"
       ref={ref}
     >
@@ -72,7 +81,7 @@ function Image({ src, text }) {
         </p>
         <button className="arrow-button"> arrow </button>
       </motion.div>
-    </div>
+    </motion.div>
   );
 }
 
