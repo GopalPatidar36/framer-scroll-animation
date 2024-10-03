@@ -46,7 +46,7 @@ function Image({ src, text }) {
     <motion.div
       style={{
         backgroundImage: `url(${src})`,
-        backgroundSize: "contain",
+        backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
         position: "relative",
