@@ -28,8 +28,8 @@ const imageGallery = [
 
 function useParallax(value, distance) {
   const y = useTransform(value, [0, 1], [-distance, distance]);
-  const opacity = useTransform(value, [0.1, 0.3, 0.4, 0.5, 0.6, 0.7, 0.9], [0, 1, 1, 1, 1, 1, 0]); // Visible only in the middle range
-  const backgroundPositionY = useTransform(value, [0, 1], ["0%", "50%"]); // Smooth background scrolling
+  const opacity = useTransform(value, [0.1, 0.5, 0.9], [0, 1, 0]);
+  const backgroundPositionY = useTransform(value, [0, 0.5, 1], ["0%", "50%", "100%"]);
   return { y, opacity, backgroundPositionY };
 }
 
@@ -37,7 +37,7 @@ function Image({ src, text }) {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["end end", "start start"], // Adjust based on when the animation should begin/end
+    offset: ["start center", "end center"],
   });
 
   const { y, opacity, backgroundPositionY } = useParallax(scrollYProgress, 200); // Use parallax with fade effect
